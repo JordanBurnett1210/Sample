@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Player.cs" />
-    <Compile Include="Controller\Game.cs" />
     <Compile Include="View\Animation.cs" />
     <Compile Include="View\ParallaxingBackground.cs" />
     <Compile Include="Controller\Game1.cs" />
