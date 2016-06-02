@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Famework;
 using Microsoft.Xna.
-using View.Animation;
+using Sample.View;
 
 namespace Sample.Model
 {
@@ -66,7 +66,7 @@ namespace Sample.Model
 			PlayerAnimation.Update(gameTime);
 		}
 
-		public void Draw(spriteBatch)
+		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(PlayerTexture, Position, null, ConsoleColor.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 		}

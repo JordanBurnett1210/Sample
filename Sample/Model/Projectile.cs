@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphic
 namespace Sample
 {
-	public class Flamethrower
+	public class Projectile
 	{
 		// Image representing the Projectile
 		public Texture2D Texture;
