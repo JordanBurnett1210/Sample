@@ -9,7 +9,7 @@ namespace Sample
 	{
 		private Texture2D Texture;
 
-		private Vector2D[] positions;
+		private Vector2[] positions;
 
 		private int speed;
 

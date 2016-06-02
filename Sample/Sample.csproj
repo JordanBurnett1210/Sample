@@ -51,9 +51,10 @@
     <Compile Include="Controller\Game.cs" />
     <Compile Include="View\Animation.cs" />
     <Compile Include="View\ParallaxingBackground.cs" />
-    <Compile Include="Model\Flamethrower.cs" />
     <Compile Include="Controller\Game1.cs" />
     <Compile Include="Controller\Program.cs" />
+    <Compile Include="View\Enemy.cs" />
+    <Compile Include="Model\Projectile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

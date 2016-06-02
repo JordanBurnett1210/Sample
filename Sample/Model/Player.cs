@@ -7,6 +7,8 @@ namespace Sample.Model
 {
 	public class Player
 	{
+		// Animation representing the player
+		public Animation PlayerAnimation;
 		private int score;
 		private bool active;
 		private int health;
@@ -57,9 +59,11 @@ namespace Sample.Model
 			this.Health = 100;
 		}
 
-		public void Update()
+		// Update the player animation
+		public void Update(GameTime gameTime)
 		{
-
+			PlayerAnimation.Position = Position;
+			PlayerAnimation.Update(gameTime);
 		}
 
 		public void Draw(spriteBatch)
