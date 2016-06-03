@@ -55,6 +55,7 @@
     <Compile Include="View\Enemy.cs" />
     <Compile Include="Model\Projectile.cs" />
     <Compile Include="Model\Flamethrower.cs" />
+    <Compile Include="Model\Nyan.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

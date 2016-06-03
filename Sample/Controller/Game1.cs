@@ -27,14 +27,18 @@ namespace Sample.Controller
 		List<Animation> explosions;
 		Texture2D fireballTexture;
 		List<Flamethrower> fireballs;
+		Texture2D nyanTexture;
+		List<Nyan> nyans;
 		Texture2D projectileTexture;
 		List<Projectile> projectiles;
 
 		// The rate of fire of the player laser
 		TimeSpan fireTime;
 		TimeSpan fireballTime;
+		TimeSpan nyanTime;
 		TimeSpan previousFireTime;
 		TimeSpan previousFireballTime;
+		TimeSpan previousNyanTime;
 		// Image used to display the static background
 		Texture2D mainBackground;
 
@@ -79,11 +83,13 @@ namespace Sample.Controller
 			projectiles = new List<Projectile>();
 			explosions = new List<Animation>();
 			fireballs = new List<Flamethrower> ();
+			nyans = new List<Nyan> ();
 			//Set player's score to zero
 			score = 0;
 			// Set the laser to fire every quarter second
 			fireTime = TimeSpan.FromSeconds(.15f);
-			fireballTime = TimeSpan.FromSeconds (.05);
+			fireballTime = TimeSpan.FromSeconds (.05f);
+			nyanTime = TimeSpan.FromSeconds (1f);
 			// Initialize the player class
 			player = new Player();
 			// Set a constant player move speed
@@ -99,6 +105,9 @@ namespace Sample.Controller
 
 			// Set the time keepers to zero
 			previousSpawnTime = TimeSpan.Zero;
+			previousFireballTime = TimeSpan.Zero;
+			previousFireTime = TimeSpan.Zero;
+			previousNyanTime = TimeSpan.Zero;
 
 			// Used to determine how fast enemy respawns
 			enemySpawnTime = TimeSpan.FromSeconds(1.0f);
@@ -143,6 +152,7 @@ namespace Sample.Controller
 			enemyTexture = Content.Load<Texture2D>("mineAnimation");
 			projectileTexture = Content.Load<Texture2D>("laser");
 			fireballTexture = Content.Load<Texture2D> ("fireball");
+			nyanTexture = Content.Load<Texture2D> ("nyan");
 			mainBackground = Content.Load<Texture2D>("mainbackground");
 		}
 
@@ -198,6 +208,8 @@ namespace Sample.Controller
 			UpdateProjectiles();
 			// Update the fireballs
 			UpdateFireballs();
+			// Update the nyans
+			UpdateNyans();
 			// Update the explosions
 			UpdateExplosions(gameTime);
 			base.Update (gameTime);
@@ -215,6 +227,13 @@ namespace Sample.Controller
 			Flamethrower fireball = new Flamethrower(); 
 			fireball.Initialize(GraphicsDevice.Viewport, projectileTexture,position); 
 			fireballs.Add(fireball);
+		}
+
+		private void AddNyan(Vector2 position)
+		{
+			Nyan nyan = new Nyan(); 
+			nyan.Initialize(GraphicsDevice.Viewport, projectileTexture,position); 
+			nyans.Add(nyan);
 		}
 
 		private void AddEnemy()
@@ -304,9 +323,23 @@ namespace Sample.Controller
 			{
 				projectiles[i].Update();
 
-				if (projectiles[i].Active == false)
+				if (fireballs[i].Active == false)
 				{
-					projectiles.RemoveAt(i);
+					fireballs.RemoveAt(i);
+				} 
+			}
+		}
+
+		private void UpdateNyans()
+		{
+			// Update the Projectiles
+			for (int i = nyans.Count - 1; i >= 0; i--) 
+			{
+				nyans[i].Update();
+
+				if (nyans[i].Active == false)
+				{
+					nyans.RemoveAt(i);
 				} 
 			}
 		}
@@ -351,8 +384,27 @@ namespace Sample.Controller
 
 				// Add the projectile, but add it to the front and center of the player
 				AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
+				// Play the laser sound
+				laserSound.Play();
+			}
+			// Fire only every interval we set as the fireTime
+			if (gameTime.TotalGameTime - previousFireballTime > fireballTime)
+			{
+				// Reset our current time
+				previousFireballTime = gameTime.TotalGameTime;
+
 				// Add the fireball, but add it to the front and center of the player
 				AddFireball(player.Position + new Vector2(player.Width / 2, 0));
+				// Play the laser sound
+				laserSound.Play();
+			}
+			if (gameTime.TotalGameTime - previousNyanTime > nyanTime)
+			{
+				// Reset our current time
+				previousNyanTime = gameTime.TotalGameTime;
+
+				// Add the fireball, but add it to the front and center of the player
+				AddNyan(player.Position + new Vector2(player.Width / 2, 0));
 				// Play the laser sound
 				laserSound.Play();
 			}
@@ -425,6 +477,7 @@ namespace Sample.Controller
 					}
 				}
 			}
+			// Fireball vs Enemy Collision
 			for (int i = 0; i < fireballs.Count; i++)
 			{
 				for (int j = 0; j < enemies.Count; j++)
@@ -443,6 +496,28 @@ namespace Sample.Controller
 					{
 						enemies[j].Health -= fireballs[i].Damage;
 						fireballs[i].Active = false;
+					}
+				}
+			}
+			// Nyan vs Enemy Collision
+			for (int i = 0; i < nyans.Count; i++)
+			{
+				for (int j = 0; j < enemies.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)nyans[i].Position.X - 
+						nyans[i].Width / 2,(int)nyans[i].Position.Y - 
+						nyans[i].Height / 2,nyans[i].Width, nyans[i].Height);
+
+					rectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2,
+						(int)enemies[j].Position.Y - enemies[j].Height / 2,
+						enemies[j].Width, enemies[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						enemies[j].Health -= nyans[i].Damage;
+						nyans[i].Active = false;
 					}
 				}
 			}
@@ -477,6 +552,10 @@ namespace Sample.Controller
 			for (int i = 0; i < fireballs.Count; i++)
 			{
 				fireballs[i].Draw(spriteBatch);
+			}
+			for (int i = 0; i < nyans.Count; i++)
+			{
+				nyans[i].Draw(spriteBatch);
 			}
 			//TODO: Add your drawing code here
 			// Draw the explosions

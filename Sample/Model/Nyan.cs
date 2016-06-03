@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphic
 namespace Sample
 {
-	public class Flamethrower
+	public class Nyan
 	{
 		// Image representing the Projectile
 		public Texture2D Texture;
@@ -46,9 +46,9 @@ namespace Sample
 
 			Active = true;
 
-			Damage = 50;
+			Damage = 100;
 
-			projectileMoveSpeed = 10f;
+			projectileMoveSpeed = 5f;
 		}
 		public void Update()
 		{
