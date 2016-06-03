@@ -17,6 +17,8 @@ namespace Sample.Controller
 		SpriteFont font;
 		// The sound that is played when a laser is fired
 		SoundEffect laserSound;
+		SoundEffect meow;
+		SoundEffect fire;
 
 		// The sound used when the player or an enemy dies
 		SoundEffect explosionSound;
@@ -129,6 +131,8 @@ namespace Sample.Controller
 
 			// Load the laser and explosion sound effect
 			laserSound = Content.Load<SoundEffect>("sound/laserFire");
+			meow = Content.Load<SoundEffect>("sound/Meow-sound-effect");
+			fire = Content.Load<SoundEffect> ("sound/Fire-crackling");
 			explosionSound = Content.Load<SoundEffect>("sound/explosion");
 
 			// Start the music right away
@@ -396,7 +400,7 @@ namespace Sample.Controller
 				// Add the fireball, but add it to the front and center of the player
 				AddFireball(player.Position + new Vector2(player.Width / 2, 0));
 				// Play the laser sound
-				laserSound.Play();
+				fire.Play();
 			}
 			if (gameTime.TotalGameTime - previousNyanTime > nyanTime)
 			{
@@ -406,7 +410,7 @@ namespace Sample.Controller
 				// Add the fireball, but add it to the front and center of the player
 				AddNyan(player.Position + new Vector2(player.Width / 2, 0));
 				// Play the laser sound
-				laserSound.Play();
+				meow.Play();
 			}
 			// reset score if player health goes to zero
 			if (player.Health <= 0)
