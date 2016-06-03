@@ -7,7 +7,7 @@ namespace Sample
 {
 	public class ParallaxingBackground
 	{
-		private Texture2D Texture;
+		private Texture2D texture;
 
 		private Vector2[] positions;
 

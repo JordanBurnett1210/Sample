@@ -2,8 +2,8 @@
 //Using declarations
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphic
-namespace Sample
+using Microsoft.Xna.Framework.Graphics;
+namespace Sample.Model
 {
 	public class Nyan
 	{

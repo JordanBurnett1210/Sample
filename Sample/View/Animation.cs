@@ -12,7 +12,7 @@ namespace Sample
 	{
 		// The image representing the collection of images used for animation
 		private Texture2D spriteStrip;
-		public Tture2D SpriteStrip
+		public Texture2D SpriteStrip
 		{
 			get{ return spriteStrip; }
 			set{ spriteStrip = value; }
@@ -32,7 +32,7 @@ namespace Sample
 		public int ElapsedTime
 		{
 			get{ return elapsedTime; }
-			set{ elapdTime = value; }
+			set{ elapsedTime = value; }
 		}
 
 		// The time we display a frame until the next one
@@ -64,7 +64,7 @@ namespace Sample
 		public Color Color
 		{
 			get{ return color; }
-			set{ color = ValueType; }
+			set{ color = value; }
 		}
 
 		// The area of the image strip we want to display
@@ -107,7 +107,7 @@ namespace Sample
 
 
 		// Width of a given frame
-		private Vector2D position;
+		private Vector2 position;
 		public Vector2 Position
 		{
 			get{ return position; }

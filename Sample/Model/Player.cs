@@ -1,7 +1,6 @@
 ﻿using System;
-using Microsoft.Xna.Famework;
-using Microsoft.Xna.
-using Sample.View;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sample.Model
 {

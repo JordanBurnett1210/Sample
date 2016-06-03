@@ -2,7 +2,7 @@
 //Using declarations
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphic
+using Microsoft.Xna.Framework.Graphics;
 namespace Sample
 {
 	public class Flamethrower

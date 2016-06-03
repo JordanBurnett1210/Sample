@@ -20,6 +20,9 @@
     <File>/Users/jbur0473/Projects/Sample/Sample/Content/Texture/mainbackground.png</File>
     <File>/Users/jbur0473/Projects/Sample/Sample/Content/Texture/mine.png</File>
     <File>/Users/jbur0473/Projects/Sample/Sample/Content/Texture/player.png</File>
-    <File>/Users/jbur0473/Projects/Sample/Sample/Content/Animation/fireball.jpg</File>
+    <File>/Users/jbur0473/Projects/Sample/Sample/Content/Texture/fireball.jpg</File>
+    <File>/Users/jbur0473/Projects/Sample/Sample/Content/Texture/nyancat.png</File>
+    <File>/Users/jbur0473/Projects/Sample/Sample/Content/Sound/Meow-sound-effect.mp3</File>
+    <File>/Users/jbur0473/Projects/Sample/Sample/Content/Sound/Fire-crackling.mp3</File>
   </SourceFiles>
 </SourceFileCollection>
