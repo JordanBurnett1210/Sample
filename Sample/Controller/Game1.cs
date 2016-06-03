@@ -25,12 +25,16 @@ namespace Sample.Controller
 		Song gameplayMusic;
 		Texture2D explosionTexture;
 		List<Animation> explosions;
+		Texture2D fireballTexture;
+		List<Flamethrower> fireballs;
 		Texture2D projectileTexture;
 		List<Projectile> projectiles;
 
 		// The rate of fire of the player laser
 		TimeSpan fireTime;
+		TimeSpan fireballTime;
 		TimeSpan previousFireTime;
+		TimeSpan previousFireballTime;
 		// Image used to display the static background
 		Texture2D mainBackground;
 
@@ -74,10 +78,12 @@ namespace Sample.Controller
 		{
 			projectiles = new List<Projectile>();
 			explosions = new List<Animation>();
+			fireballs = new List<Flamethrower> ();
 			//Set player's score to zero
 			score = 0;
 			// Set the laser to fire every quarter second
 			fireTime = TimeSpan.FromSeconds(.15f);
+			fireballTime = TimeSpan.FromSeconds (.05);
 			// Initialize the player class
 			player = new Player();
 			// Set a constant player move speed
@@ -136,6 +142,7 @@ namespace Sample.Controller
 			bgLayer2.Initialize(Content, "bgLayer2", GraphicsDevice.Viewport.Width, -2);
 			enemyTexture = Content.Load<Texture2D>("mineAnimation");
 			projectileTexture = Content.Load<Texture2D>("laser");
+			fireballTexture = Content.Load<Texture2D> ("fireball");
 			mainBackground = Content.Load<Texture2D>("mainbackground");
 		}
 
@@ -189,6 +196,8 @@ namespace Sample.Controller
 			UpdateCollision();
 			// Update the projectiles
 			UpdateProjectiles();
+			// Update the fireballs
+			UpdateFireballs();
 			// Update the explosions
 			UpdateExplosions(gameTime);
 			base.Update (gameTime);
@@ -199,6 +208,13 @@ namespace Sample.Controller
 			Projectile projectile = new Projectile(); 
 			projectile.Initialize(GraphicsDevice.Viewport, projectileTexture,position); 
 			projectiles.Add(projectile);
+		}
+
+		private void AddFireball(Vector2 position)
+		{
+			Flamethrower fireball = new Flamethrower(); 
+			fireball.Initialize(GraphicsDevice.Viewport, projectileTexture,position); 
+			fireballs.Add(fireball);
 		}
 
 		private void AddEnemy()
@@ -281,6 +297,20 @@ namespace Sample.Controller
 			}
 		}
 
+		private void UpdateFireballs()
+		{
+			// Update the Projectiles
+			for (int i = fireballs.Count - 1; i >= 0; i--) 
+			{
+				projectiles[i].Update();
+
+				if (projectiles[i].Active == false)
+				{
+					projectiles.RemoveAt(i);
+				} 
+			}
+		}
+
 		private void UpdatePlayer(GameTime gameTime)
 		{
 			player.Update(gameTime);
@@ -321,6 +351,8 @@ namespace Sample.Controller
 
 				// Add the projectile, but add it to the front and center of the player
 				AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
+				// Add the fireball, but add it to the front and center of the player
+				AddFireball(player.Position + new Vector2(player.Width / 2, 0));
 				// Play the laser sound
 				laserSound.Play();
 			}
@@ -393,6 +425,27 @@ namespace Sample.Controller
 					}
 				}
 			}
+			for (int i = 0; i < fireballs.Count; i++)
+			{
+				for (int j = 0; j < enemies.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)fireballs[i].Position.X - 
+						fireballs[i].Width / 2,(int)fireballs[i].Position.Y - 
+						fireballs[i].Height / 2,fireballs[i].Width, fireballs[i].Height);
+
+					rectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2,
+						(int)enemies[j].Position.Y - enemies[j].Height / 2,
+						enemies[j].Width, enemies[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						enemies[j].Health -= fireballs[i].Damage;
+						fireballs[i].Active = false;
+					}
+				}
+			}
 		}
 
 
@@ -420,6 +473,10 @@ namespace Sample.Controller
 			for (int i = 0; i < projectiles.Count; i++)
 			{
 				projectiles[i].Draw(spriteBatch);
+			}
+			for (int i = 0; i < fireballs.Count; i++)
+			{
+				fireballs[i].Draw(spriteBatch);
 			}
 			//TODO: Add your drawing code here
 			// Draw the explosions

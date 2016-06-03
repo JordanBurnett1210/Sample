@@ -1,13 +1,19 @@
 ﻿<Properties StartupItem="Sample/Sample.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Sample/Controller/Game.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Sample/Model/Player.cs">
     <Files>
-      <File FileName="Sample/Controller/Game.cs" Line="1" Column="1" />
-      <File FileName="Sample/Controller/Game1.cs" Line="56" Column="4" />
+      <File FileName="Sample/Controller/Game1.cs" Line="131" Column="3" />
+      <File FileName="Sample/Model/Player.cs" Line="4" Column="1" />
+      <File FileName="Sample/View/Animation.cs" Line="188" Column="4" />
+      <File FileName="Sample/View/ParallaxingBackground.cs" Line="13" Column="3" />
+      <File FileName="Sample/View/Enemy.cs" Line="93" Column="4" />
+      <File FileName="Sample/Model/Projectile.cs" Line="8" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/jbur0473/Projects/Sample/Sample/Model/Player.cs" line="4" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

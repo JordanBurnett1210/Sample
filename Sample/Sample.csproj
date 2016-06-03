@@ -54,6 +54,7 @@
     <Compile Include="Controller\Program.cs" />
     <Compile Include="View\Enemy.cs" />
     <Compile Include="Model\Projectile.cs" />
+    <Compile Include="Model\Flamethrower.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
